@@ -2,13 +2,14 @@ import "leaflet/dist/leaflet.css";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
+import ReactLeafletKml from "react-leaflet-kml";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 import { MapController, Navbar } from "../../components/index.jsx";
 import {
   useGetProjectByIdQuery,
   useLazyGetKMLDataQuery,
 } from "../../store/api/projectsApi.js";
-import ReactLeafletKml from "react-leaflet-kml";
 
 function ViewProjectPage() {
   // Get project ID from URL parameters
@@ -30,8 +31,19 @@ function ViewProjectPage() {
       getKMLData(mapURL)
         .unwrap()
         .then((res) => {
-          const parser = new DOMParser();
-          setKMLData(parser.parseFromString(res, "text/xml"));
+          if (res.length) {
+            const parser = new DOMParser();
+            setKMLData(parser.parseFromString(res, "text/xml"));
+          } else {
+            throw new Error("No data recieved!");
+          }
+        })
+        .catch((error) => {
+          Swal.fire({
+            title: "Error",
+            text: "Something went wrong while loading the KML data.",
+            icon: "error",
+          });
         });
     }
   }, [data]);
