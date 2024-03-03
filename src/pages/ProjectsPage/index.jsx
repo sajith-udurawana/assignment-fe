@@ -10,6 +10,21 @@ import { Button, Input, Stack } from "rsuite";
 import _ from "lodash";
 import { Link } from "react-router-dom";
 
+/**
+ * ProjectsPage Function
+ * Description: This function defines the component for displaying a list of projects.
+ * It retrieves projects from the Redux store, handles project search functionality,
+ * and renders project cards.
+ *
+ * Functionality:
+ * - Retrieves list of projects from Redux store.
+ * - Handles project search query change.
+ * - Renders project cards for each project.
+ *
+ * To showcase my understanding of the redux toolkit, the state management of this component
+ * has been implemented using slices.
+ */
+
 function ProjectsPage() {
   const dispatch = useDispatch();
   // List of projects

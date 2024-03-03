@@ -1,10 +1,21 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import _ from "lodash";
 
+/**
+ * Slice: projectsSlice
+ * Description: This slice manages the state related to projects.
+ * It includes reducers for setting projects and updating search query.
+ * 
+ * Reducers:
+ * - setProjects: Updates the projects and visibleProjects state based on the payload.
+ * - setSearchQuery: Updates the searchQuery state and filters visibleProjects based on the search query.
+ * 
+ */
 
 const initialState = {
     projects: [], visibleProjects: [], searchQuery: '',
 }
+
 export const projectsSlice = createSlice({
     name: 'projects', initialState, reducers: {
         setProjects: (state, action) => {
@@ -27,4 +38,5 @@ export const projectsSlice = createSlice({
 export const {
     setSearchQuery, setProjects
 } = projectsSlice.actions
+
 export default projectsSlice.reducer

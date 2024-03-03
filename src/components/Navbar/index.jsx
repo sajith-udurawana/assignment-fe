@@ -2,6 +2,14 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
 
+/**
+ * Navbar Function
+ * Description: This function defines a navigation bar component.
+ * It renders a navigation bar with a title as a link to the home page.
+ *
+ * Props:
+ * - title: The title to be displayed in the navigation bar.
+ */
 function Navbar({ title }) {
   return (
     <React.Fragment>
@@ -18,8 +26,6 @@ function Navbar({ title }) {
 
 Navbar.propTypes = {
   title: PropTypes.string,
-  description: PropTypes.string,
-  id: PropTypes.number,
 };
 
 export default Navbar;

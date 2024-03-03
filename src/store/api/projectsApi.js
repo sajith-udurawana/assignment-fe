@@ -1,5 +1,18 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import _ from 'lodash';
+
+/**
+ * API: projectsApi
+ * Description: This API module provides functions for interacting with project-related endpoints.
+ * 
+ * Functions:
+ * - getAllProjects: Fetches all projects.
+ * - saveProject: Saves a project. If project ID exists, updates the project, otherwise creates a new project.
+ * - getProjectById: Fetches a project by ID.
+ * - deleteProjectById: Deletes a project by ID.
+ * - getKMLData: Fetches KML data.
+ */
+
 export const projectsApi = createApi({
   reducerPath: "projectsApi",
   keepUnusedDataFor: 0,

@@ -12,6 +12,15 @@ import {
 } from "./pages";
 import { store } from "./store";
 
+/**
+ * Routes:
+ * - "/" route renders ProjectsPage component inside ProtectedRoute.
+ * - "/project" route renders EditProjectPage component inside ProtectedRoute.
+ * - "/project/:id" route renders EditProjectPage component inside ProtectedRoute.
+ * - "/view/:id" route renders ViewProjectPage component inside ProtectedRoute.
+ * - "/login" route renders LoginPage component.
+ */
+
 function App() {
   return (
     <Provider store={store}>
@@ -25,9 +34,30 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/project" element={<EditProjectPage />} />
-          <Route path="/project/:id" element={<EditProjectPage />} />
-          <Route path="/view/:id" element={<ViewProjectPage />} />
+          <Route
+            path="/project"
+            element={
+              <ProtectedRoute>
+                <EditProjectPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/project/:id"
+            element={
+              <ProtectedRoute>
+                <EditProjectPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/view/:id"
+            element={
+              <ProtectedRoute>
+                <ViewProjectPage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>

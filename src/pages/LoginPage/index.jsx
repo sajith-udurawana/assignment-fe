@@ -4,12 +4,25 @@ import { useNavigate } from "react-router-dom";
 import { Button, Form, Panel, Schema } from "rsuite";
 import Swal from "sweetalert2";
 import { useLoginMutation } from "../../store/api/authApi";
+import { useEffect } from "react";
 const formModel = Schema.Model({
   email: Schema.Types.StringType()
     .isRequired("Email is required!")
     .isEmail("Should be a valid email!"),
   password: Schema.Types.StringType().isRequired("Password is required!"),
 });
+
+/**
+ * LoginPage Function
+ * Description: This function defines the component for user login.
+ * It handles user authentication using the useLoginMutation hook and redirects to the dashboard upon successful login.
+ *
+ * Functionality:
+ * - Handles user login form submission.
+ * - Performs user authentication using useLoginMutation hook.
+ * - Redirects to the dashboard upon successful login.
+ */
+
 function LoginPage() {
   const [login, { data, isLoading, error }] = useLoginMutation();
   const [formValue, setFormValue] = useState({});
@@ -38,6 +51,11 @@ function LoginPage() {
         });
     }
   };
+  useEffect(() => {
+    if (localStorage.getItem("authToken") != null) {
+      navigate("/");
+    }
+  }, []);
   return (
     <React.Fragment>
       <div className="container-fluid bg-dark">

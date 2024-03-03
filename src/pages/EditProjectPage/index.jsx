@@ -11,6 +11,17 @@ import Swal from "sweetalert2";
 import _ from "lodash";
 import { Link } from "react-router-dom";
 
+/**
+ * EditProjectPage Function
+ * Description: This function defines the component for editing or creating a project.
+ * It handles form submission, project CRUD operations, and navigation.
+ *
+ * Functionality:
+ * - Handles form submission for saving or updating a project.
+ * - Handles project CRUD operations such as save, delete, and fetch.
+ * - Renders a form for editing or creating a project.
+ */
+
 const formModel = Schema.Model({
   name: Schema.Types.StringType().isRequired("Name is required!"),
   description: Schema.Types.StringType().isRequired("Description is required!"),

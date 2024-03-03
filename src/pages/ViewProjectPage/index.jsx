@@ -13,6 +13,18 @@ import {
 import { Breadcrumb } from "rsuite";
 import { Link } from "react-router-dom";
 
+/**
+ * ViewProjectPage Function
+ * Description: This function defines the component for viewing project details.
+ * It retrieves project data by ID and lazy loads KML data for displaying on the map.
+ *
+ * Functionality:
+ * - Retrieves project ID from URL parameters.
+ * - Queries project data by ID using useGetProjectByIdQuery hook.
+ * - Lazy loads KML data using useLazyGetKMLDataQuery hook.
+ * - Parses and displays KML data on the map using ReactLeafletKml component.
+ */
+
 function ViewProjectPage() {
   // Get project ID from URL parameters
   const { id } = useParams();
@@ -41,14 +53,14 @@ function ViewProjectPage() {
           }
         })
         .catch((error) => {
-          // Swal.fire({
-          //   title: "Error",
-          //   text:
-          //     "Something went wrong while loading the KML data. (" +
-          //     error.message +
-          //     ")",
-          //   icon: "error",
-          // });
+          Swal.fire({
+            title: "Error",
+            text:
+              "Something went wrong while loading the KML data. (" +
+              error.message +
+              ")",
+            icon: "error",
+          });
         });
     }
   }, [data]);
