@@ -41,14 +41,14 @@ function ViewProjectPage() {
           }
         })
         .catch((error) => {
-          Swal.fire({
-            title: "Error",
-            text:
-              "Something went wrong while loading the KML data. (" +
-              error.message +
-              ")",
-            icon: "error",
-          });
+          // Swal.fire({
+          //   title: "Error",
+          //   text:
+          //     "Something went wrong while loading the KML data. (" +
+          //     error.message +
+          //     ")",
+          //   icon: "error",
+          // });
         });
     }
   }, [data]);
@@ -73,7 +73,6 @@ function ViewProjectPage() {
             {kmlDataLoading && (
               <div className="alert alert-warning">Loading KML data…</div>
             )}
-            {kmlError && <div className="alert alert-error">{kmlError}</div>}
             {kmlData && (
               <MapContainer
                 style={{ height: "50vh" }}

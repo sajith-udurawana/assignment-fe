@@ -1,15 +1,27 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import _ from 'lodash';
 export const projectsApi = createApi({
   reducerPath: "projectsApi",
   keepUnusedDataFor: 0,
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8080/api/" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://localhost:8080/api/",
+    prepareHeaders: (headers) => {
+      const token = localStorage.getItem("authToken");
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
+  }),
   endpoints: (builder) => ({
     getAllProjects: builder.query({
       query: () => `projects`,
       transformErrorResponse(error) {
         return `Something went wrong! (Message: ${error.error}, Code: ${error.status})`;
       },
+      transformResponse(response) {
+        return _.get(response, 'payload', [])
+      }
     }),
     saveProject: builder.mutation({
       query: (project) => {
@@ -29,6 +41,9 @@ export const projectsApi = createApi({
       transformErrorResponse(error) {
         return `Something went wrong! (Message: ${error.error}, Code: ${error.status})`;
       },
+      transformResponse(response) {
+        return _.get(response, 'payload')
+      }
     }),
     getProjectById: builder.query({
       query(id) {
@@ -36,7 +51,9 @@ export const projectsApi = createApi({
       },
       transformErrorResponse(error) {
         return `Something went wrong! (Message: ${error.error}, Code: ${error.status})`;
-      },
+      }, transformResponse(response) {
+        return _.get(response, 'payload')
+      }
     }),
     deleteProjectById: builder.mutation({
       query(id) {
@@ -44,20 +61,24 @@ export const projectsApi = createApi({
       },
       transformErrorResponse(error) {
         return `Something went wrong! (Message: ${error.error}, Code: ${error.status})`;
-      },
+      }, transformResponse(response) {
+        return _.get(response, 'payload')
+      }
     }),
     getKMLData: builder.query({
-      query(url) {
+      query(data) {
         return {
-          url: "resources",
+          url: "resources/kml",
           method: "POST",
-          body: url,
-          headers: {
-            "Content-Type": "text/plain",
+          body: {
+            "url": data
           },
-          responseHandler: (response) => response.text(),
         };
-      },
+      }, transformResponse(response) {
+        return _.get(response, 'payload', '')
+      }, transformErrorResponse(error) {
+        return `Something went wrong! (Message: ${error.error}, Code: ${error.status})`;
+      }
     }),
   }),
 });
