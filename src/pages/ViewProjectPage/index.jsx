@@ -10,6 +10,8 @@ import {
   useGetProjectByIdQuery,
   useLazyGetKMLDataQuery,
 } from "../../store/api/projectsApi.js";
+import { Breadcrumb } from "rsuite";
+import { Link } from "react-router-dom";
 
 function ViewProjectPage() {
   // Get project ID from URL parameters
@@ -41,7 +43,10 @@ function ViewProjectPage() {
         .catch((error) => {
           Swal.fire({
             title: "Error",
-            text: "Something went wrong while loading the KML data.",
+            text:
+              "Something went wrong while loading the KML data. (" +
+              error.message +
+              ")",
             icon: "error",
           });
         });
@@ -51,6 +56,16 @@ function ViewProjectPage() {
     <React.Fragment>
       <Navbar title="View Project" />
       <div className="container py-3">
+        <div className="row">
+          <div className="col">
+            <Breadcrumb>
+              <Breadcrumb.Item as={Link} to="/">
+                Projects
+              </Breadcrumb.Item>
+              <Breadcrumb.Item active>View Project</Breadcrumb.Item>
+            </Breadcrumb>
+          </div>
+        </div>
         <div className="row">
           <div className="col">
             <h1>{_.get(project, "name")}</h1>

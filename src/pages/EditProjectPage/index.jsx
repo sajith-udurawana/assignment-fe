@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Navbar } from "../../components/index.jsx";
-import { Button, Form, Schema, Stack } from "rsuite";
+import { Button, Form, Schema, Stack, Breadcrumb } from "rsuite";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   useDeleteProjectByIdMutation,
@@ -9,6 +9,7 @@ import {
 } from "../../store/api/projectsApi.js";
 import Swal from "sweetalert2";
 import _ from "lodash";
+import { Link } from "react-router-dom";
 
 const formModel = Schema.Model({
   name: Schema.Types.StringType().isRequired("Name is required!"),
@@ -110,8 +111,20 @@ function EditProjectPage() {
   };
   return (
     <React.Fragment>
-      <Navbar title="Edit Project" />
+      <Navbar title={(id ? "Edit" : "Create") + " Project"} />
       <div className="container py-3">
+        <div className="row">
+          <div className="col">
+            <Breadcrumb>
+              <Breadcrumb.Item as={Link} to="/">
+                Projects
+              </Breadcrumb.Item>
+              <Breadcrumb.Item active>
+                {id ? "Edit" : "Create"} Project
+              </Breadcrumb.Item>
+            </Breadcrumb>
+          </div>
+        </div>
         <div className="row">
           <div className="col">
             {error && <div className="alert alert-danger">{error}</div>}
